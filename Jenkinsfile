@@ -1,6 +1,3 @@
-env.DOCKER_REGISTRY = 'dockerhub_id'
-env.DOCKER_IMAGE_NAME = 'frontend3'
-
 pipeline {
     agent any
     tools{
