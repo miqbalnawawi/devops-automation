@@ -1,30 +1,33 @@
+env.DOCKER_REGISTRY = 'dockerhub_id'
+env.DOCKER_IMAGE_NAME = 'frontend3'
+
 pipeline {
     agent any
     tools{
-        maven 'maven_3_5_0'
+        maven 'maven'
     }
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Java-Techie-jt/devops-automation']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/miqbalnawawi/devops-automation']]])
                 sh 'mvn clean install'
             }
         }
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t javatechie/devops-integration .'
+                    sh 'docker build -t miqbalnawawi/devops-integration .'
                 }
             }
         }
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u javatechie -p ${dockerhubpwd}'
+                   withCredentials([string(credentialsId: 'dockerhub_password', variable: 'dockerhub_password')]) {
+                   sh 'docker login -u miqbalnawawi -p ${dockerhub_password}'
 
 }
-                   sh 'docker push javatechie/devops-integration'
+                   sh 'docker push miqbalnawawi/devops-integration'
                 }
             }
         }
