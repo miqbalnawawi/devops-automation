@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment # Kubernetes resource kind we are creating
 metadata:
   name: spring-boot-k8s-deployment
-  namespace: devops
 spec:
   selector:
     matchLabels:
@@ -18,7 +17,7 @@ spec:
           image: miqbalnawawi/devops-integration # Image that will be used to containers in the cluster
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8084 # The port that the container is running on in the cluster
+            - containerPort: 8080 # The port that the container is running on in the cluster
 
 
 ---
@@ -32,6 +31,6 @@ spec:
     app: spring-boot-k8s
   ports:
     - protocol: "TCP"
-      port: 8084 # The port that the service is running on in the cluster
-      targetPort: 8085 # The port exposed by the service
+      port: 8080 # The port that the service is running on in the cluster
+      targetPort: 8080 # The port exposed by the service
   type: NodePort # type of the service.
