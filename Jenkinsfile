@@ -20,8 +20,8 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'dockerhub_password', variable: 'dockerhub_password')]) {
-                   sh 'docker login -u miqbalnawawi -p ${dockerhub_password}'
+                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                   sh 'docker login -u miqbalnawawi -p ${dockerhub-pwd}'
 
 }
                    sh 'docker push miqbalnawawi/devops-integration'
